@@ -36,4 +36,3 @@ prep_to_receive_new_files $1;
 receive_new_files $1;
 remove_previous_files_in_remote $1;
 restart_pm2_process $1;
-exit 0;
