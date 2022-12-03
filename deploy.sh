@@ -17,7 +17,7 @@ prep_to_receive_new_files () {
 
 receive_new_files () {
     echo -e "Copying new files to server";
-    scp -o "StrictHostKeyChecking=no" -i $1 -r ./dist/* "ubuntu@$REMOTE_SERVER_IP":~/currency-api/build-new/;
+    scp -o "StrictHostKeyChecking=no" -i $1 -r ./* "ubuntu@$REMOTE_SERVER_IP":~/currency-api/build-new/;
 }
 
 remove_previous_files_in_remote () {
@@ -27,7 +27,7 @@ remove_previous_files_in_remote () {
 
 restart_pm2_process () {
     echo -e "Restarting PM2 Process";
-    ssh "ubuntu@$REMOTE_SERVER_IP" -o "StrictHostKeyChecking=no" -i $1 -tt 'cd currency-api/; pm2 delete currency-api || : && pm2 start /build/index.js --name currency-api';
+    ssh "ubuntu@$REMOTE_SERVER_IP" -o "StrictHostKeyChecking=no" -i $1 -tt 'cd currency-api/; pm2 delete currency-api || : && pm2 start ./build/index.js --name currency-api';
     echo -e "Deployment Complete";
 }
 
