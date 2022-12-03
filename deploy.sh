@@ -12,7 +12,7 @@ start_deploy () {
 
 prep_to_receive_new_files () {
     echo -e "Preparing Server to receive new source code";
-    ssh "ubuntu@$REMOTE_SERVER_IP" -o "StrictHostKeyChecking=no" -i $1 -tt 'mkdir -p currency-api;cd currency-api/; mkdir build-new/';
+    ssh "ubuntu@$REMOTE_SERVER_IP" -o "StrictHostKeyChecking=no" -i $1 -tt 'mkdir -p currency-api/build-new/;mkdir -p currency-api/build/;';
 }
 
 receive_new_files () {
