@@ -12,7 +12,7 @@ start_deploy () {
 
 prep_to_receive_new_files () {
     echo -e "Preparing Server to receive new source code";
-    ssh "ubuntu@$REMOTE_SERVER_IP" -o "StrictHostKeyChecking=no" -i $1 -tt 'cd currency-api/; mkdir build-new/';
+    ssh "ubuntu@$REMOTE_SERVER_IP" -o "StrictHostKeyChecking=no" -i $1 -tt 'mkdir -p currency-api;cd currency-api/; mkdir build-new/';
 }
 
 receive_new_files () {
@@ -22,7 +22,7 @@ receive_new_files () {
 
 remove_previous_files_in_remote () {
     echo -e "Removing previous project files in Server";
-    ssh "ubuntu@$REMOTE_SERVER_IP" -o "StrictHostKeyChecking=no" -i $1 -tt 'cd currency/; mv build/ build-old/; mv build-new/ build/; rm -rf build-old/;';
+    ssh "ubuntu@$REMOTE_SERVER_IP" -o "StrictHostKeyChecking=no" -i $1 -tt 'cd currency-api/; mv build/ build-old/; mv build-new/ build/; rm -rf build-old/;';
 }
 
 restart_pm2_process () {
