@@ -24,7 +24,7 @@ function upload_docker_image {
 
 remove_previous_files_in_remote () {
     echo -e "Removing previous project files in Server";
-    ssh "ubuntu@$REMOTE_SERVER_IP" -o "StrictHostKeyChecking=no" -i $1 -tt 'cd currency-api/; mv build/ build-old/; mv build-new/ build/; rm -rf build-old/;';
+    ssh "ubuntu@$REMOTE_SERVER_IP" -o "StrictHostKeyChecking=no" -i $1 -tt 'docker rmi $IMAGE_REPOSITORY';
 }
 
 restart_docker () {
@@ -37,4 +37,4 @@ restart_docker () {
 start_deploy $1;
 upload_docker_image $1;
 restart_docker $1;
-remove_previous_files_in_remote $1;
+#remove_previous_files_in_remote $1;
