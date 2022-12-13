@@ -14,10 +14,10 @@ start_deploy () {
 
 
 function upload_docker_image {
-	if [[ $(ssh -i $1 ubuntu@$REMOTE_SERVER_IP "docker images $IMAGE_REPOSITORY | grep $1 | tr -s ' ' | cut -d ' ' -f 3") != $(docker images $IMAGE_REPOSITORY | grep $1 | tr -s ' ' | cut -d ' ' -f 3) ]]
+	if [[ $(ssh -i $1 ubuntu@$REMOTE_SERVER_IP "docker images $IMAGE_REPOSITORY | tr -s ' ' | cut -d ' ' -f 3") != $(docker images $IMAGE_REPOSITORY | tr -s ' ' | cut -d ' ' -f 3) ]]
 	then
 		echo "Docker image changed, updating..."
-		docker save $IMAGE_REPOSITORY | bzip2 | pv | ssh -i $1 ubuntu@$REMOTE_SERVER_IP 'bunzip2 | docker load'
+		docker save $IMAGE_REPOSITORY | bzip2 | pv | ssh -i $1 ubuntu@$REMOTE_SERVER_IP "bunzip2 | docker load"
 	else
 		echo "Docker image did not change"
 	fi
@@ -25,13 +25,13 @@ function upload_docker_image {
 
 cleanup_docker () {
     echo -e "Removing unused Docker objects in server";
-    ssh "ubuntu@$REMOTE_SERVER_IP" -o "StrictHostKeyChecking=no" -i $1 -tt 'docker system prune -a -f';
+    ssh "ubuntu@$REMOTE_SERVER_IP" -o "StrictHostKeyChecking=no" -i $1 -tt "docker system prune -a -f";
 }
 
 restart_docker () {
     echo -e "Restarting Docker";
-    docker rm -f currency-api || :;
-    docker run -d --name currency-api -p 80:9389 $IMAGE_REPOSITORY;
+    ssh "ubuntu@$REMOTE_SERVER_IP" -o "StrictHostKeyChecking=no" -i $1 -tt "docker rm -f currency-api || :";
+    ssh "ubuntu@$REMOTE_SERVER_IP" -o "StrictHostKeyChecking=no" -i $1 -tt "docker run -d --name currency-api -p 80:9389 $IMAGE_REPOSITORY";
     echo -e "Deployment Complete";
 }
 
