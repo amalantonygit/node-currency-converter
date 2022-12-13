@@ -30,7 +30,8 @@ cleanup_docker () {
 
 restart_docker () {
     echo -e "Restarting Docker";
-    docker run --name  $IMAGE_REPOSITORY
+    docker kill -f currency-api || :;
+    docker run --name currency-api $IMAGE_REPOSITORY
     echo -e "Deployment Complete";
 }
 
