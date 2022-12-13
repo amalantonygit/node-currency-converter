@@ -38,4 +38,4 @@ restart_docker () {
 start_deploy $1;
 upload_docker_image $1;
 restart_docker $1;
-#cleanup_docker $1;
+cleanup_docker $1;
