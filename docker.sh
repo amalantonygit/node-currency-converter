@@ -31,7 +31,7 @@ cleanup_docker () {
 restart_docker () {
     echo -e "Restarting Docker";
     ssh "ubuntu@$REMOTE_SERVER_IP" -o "StrictHostKeyChecking=no" -i $1 -tt "docker rm -f currency-api || :";
-    ssh "ubuntu@$REMOTE_SERVER_IP" -o "StrictHostKeyChecking=no" -i $1 -tt "docker run -d --name currency-api -p 80:9389 $IMAGE_REPOSITORY";
+    ssh "ubuntu@$REMOTE_SERVER_IP" -o "StrictHostKeyChecking=no" -i $1 -tt "docker run -d --name currency-api -p 80:9393 $IMAGE_REPOSITORY";
     echo -e "Deployment Complete";
 }
 
