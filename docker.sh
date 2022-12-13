@@ -1,5 +1,6 @@
 
 #!/bin/bash
+set -e
 
 start_deploy () {
     if [[ -z $1 ]]
