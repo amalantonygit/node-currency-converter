@@ -25,7 +25,7 @@ function upload_docker_image {
 
 cleanup_docker () {
     echo -e "Removing unused Docker objects in server";
-    ssh "ubuntu@$REMOTE_SERVER_IP" -o "StrictHostKeyChecking=no" -i $1 -tt 'docker system prune -f';
+    ssh "ubuntu@$REMOTE_SERVER_IP" -o "StrictHostKeyChecking=no" -i $1 -tt 'docker system prune -a -f';
 }
 
 restart_docker () {
