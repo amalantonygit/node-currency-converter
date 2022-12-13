@@ -4,3 +4,6 @@ dist
 coverage
 .vscode
 .git
+**/__tests__
+**/*.sh
+**/docker-compose.yml
